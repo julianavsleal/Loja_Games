@@ -1,9 +1,10 @@
+import { Categoria } from './../../Categoria/entities/categoria.entity';
 import { IsNotEmpty } from "class-validator";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity({name:"tb_produtos"})
-export class Produto{
+export class Produto {
 
 @PrimaryGeneratedColumn()
 id: number
@@ -27,4 +28,10 @@ from: (value: string) => parseFloat(value),
 },
 })
 preco: number;
+
+@ManyToOne(() => Categoria, (categoria) => categoria.produto, {
+onDelete: "CASCADE"
+})
+categoria : Categoria 
+
 }
